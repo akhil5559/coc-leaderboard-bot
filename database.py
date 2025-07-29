@@ -4,6 +4,9 @@ PLAYERS_FILE = "data/players.json"
 LEADERBOARD_FILE = "data/leaderboard.json"
 
 def _load_file(filename):
+    # Create the directory if it doesn't exist
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
     if not os.path.exists(filename):
         with open(filename, "w") as f:
             json.dump({}, f)
@@ -11,6 +14,9 @@ def _load_file(filename):
         return json.load(f)
 
 def _save_file(filename, data):
+    # Create the directory if it doesn't exist
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    
     with open(filename, "w") as f:
         json.dump(data, f, indent=4)
 
