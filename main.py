@@ -6,6 +6,7 @@ TOKEN = os.getenv("DISCORD_TOKEN")  # Replit secrets
 
 intents = discord.Intents.default()
 intents.members = True
+intents.message_content = True  # Add this to fix the warning
 
 bot = commands.Bot(command_prefix="!", intents=intents)
 
@@ -29,4 +30,10 @@ async def auto_refresh_leaderboard():
     # Later: Fetch Clash API, update trophies, reset daily offence/defense at 10:30 IST
     save_leaderboard_data()
 
-bot.run(TOKEN)
+# Only run the bot if this file is executed directly
+if __name__ == "__main__":
+    if TOKEN is None:
+        print("❌ Error: DISCORD_TOKEN environment variable is not set!")
+        print("Please set your Discord bot token as an environment variable.")
+        exit(1)
+    bot.run(TOKEN)
